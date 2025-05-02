@@ -1,17 +1,22 @@
-(function () {
-  const REDIRECT_URL = "https://whoushex.top/4/9122239";
-  const COOLDOWN_TIME = 2 * 60 * 1000; // 2 minutes in milliseconds
-  const STORAGE_KEY = "lastRedirectTimestamp";
 
-  const now = Date.now();
-  const lastRedirect = localStorage.getItem(STORAGE_KEY);
+  (function () {
+    const REDIRECT_URL = "https://whoushex.top/4/9122239";
+    const REDIRECT_DELAY = 20000; // 20 seconds
+    const COOLDOWN_TIME = 2 * 60 * 1000; // 2 minutes
+    const STORAGE_KEY = "lastRedirectTime";
 
-  // Check if 2 minutes have passed
-  if (!lastRedirect || now - lastRedirect > COOLDOWN_TIME) {
-    // Set timeout for redirect after 4 seconds
-    setTimeout(function () {
-      localStorage.setItem(STORAGE_KEY, Date.now());
-      window.location.replace(REDIRECT_URL);
-    }, 4000); // 4 seconds
-  }
-})();
+    const now = Date.now();
+    const lastRedirect = parseInt(localStorage.getItem(STORAGE_KEY), 10);
+
+    if (isNaN(lastRedirect) || now - lastRedirect > COOLDOWN_TIME) {
+      // Save timestamp BEFORE redirecting
+      setTimeout(function () {
+        const confirmedNow = Date.now();
+        localStorage.setItem(STORAGE_KEY, confirmedNow.toString());
+        window.location.href = REDIRECT_URL;
+      }, REDIRECT_DELAY);
+    } else {
+      console.log("Redirect skipped due to 2-minute cooldown.");
+    }
+  })();
+
